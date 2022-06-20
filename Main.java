@@ -1,91 +1,88 @@
 package com.company;
-
-import javax.swing.text.html.ListView;
 import java.io.*;
-import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Arrays;
 import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Arrays;
+
 
 
 public class Main {
+    static Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        int num1 = getInt();
+        char operation = getOperation();    
+        int num2 = getInt();
+        char get =get2();
+        int num3 = getInt();
 
-    public static void main(String args[]){
-     Scanner scanner = new Scanner(System.in);
-     while (true){
-         System.out.println("Выберите пункт:");
-         System.out.println("1.Сложение");
-         System.out.println("2.Вычитание");
-         System.out.println("3.Умножение");
-         System.out.println("4.Деление");
-         System.out.println("5.Выйти");
-         int person = scanner.nextInt();
-         int result;
-         if (person == 5){
-             break;
-         }else if (person == 1){
-             System.out.println("Введите первое число:");
-             int a = scanner.nextInt();
-             System.out.println("Введите второе число:");
-             int b = scanner.nextInt();
-             System.out.println("Введите третье число:");
-             int c = scanner.nextInt();
-             System.out.println("a:"+a);
-             System.out.println("b:"+b);
-             System.out.println("c:"+c);
-             result = a+b+c;
-             System.out.println("Ответ:"+result);
-         }else if (person == 2){
-             System.out.println("Введите первое число:");
-             int a = scanner.nextInt();
-             System.out.println("Введите второе число:");
-             int b = scanner.nextInt();
-             System.out.println("Введите третье число:");
-             int c = scanner.nextInt();
-             System.out.println("a:"+a);
-             System.out.println("b:"+b);
-             System.out.println("c:"+c);
-             result = a-b-c;
-             System.out.println("Ответ:"+result);
-         }else if (person == 3){
-             System.out.println("Введите первое число:");
-             int a = scanner.nextInt();
-             System.out.println("Введите второе число:");
-             int b = scanner.nextInt();
-             System.out.println("Введите третье число:");
-             int c = scanner.nextInt();
-             System.out.println("a:"+a);
-             System.out.println("b:"+b);
-             System.out.println("c:"+c);
-             result = a*b*c;
-             System.out.println("Ответ:"+result);
-         }else if (person == 4){
-             System.out.println("Введите первое число:");
-             int a = scanner.nextInt();
-             System.out.println("Введите второе число:");
-             int b = scanner.nextInt();
-             System.out.println("Введите третье число:");
-             int c = scanner.nextInt();
+        int result = calc(num1,num2,num3,operation);
+        System.out.println("Результат операции: "+result);
+    }
 
-             System.out.println("a:"+a);
-             System.out.println("b:"+b);
-             System.out.println("c:"+c);
-             result = a/b/c;
-             System.out.println("Ответ:"+result);
-         }
-     }
-     System.out.println("Программа завершена");
+    public static int getInt(){
+        System.out.println("Введите число:");
+        int num;
+        if(scanner.hasNextInt()){
+            num = scanner.nextInt();
+        } else {
+            System.out.println("Вы допустили ошибку при вводе числа. Попробуйте еще раз.");
+            scanner.next();//рекурсия
+            num = getInt();
+        }
+        return num;
+    }
+
+    public static char getOperation(){
+        System.out.println("Введите операцию:");
+        char operation;
+        if(scanner.hasNext()){
+            operation = scanner.next().charAt(0);
+        } else {
+            System.out.println("Вы допустили ошибку при вводе операции. Попробуйте еще раз.");
+            scanner.next();
+            operation = getOperation();
+        }
+        return operation;
+    }
+    public static char get2(){
+        System.out.println("Введите операцию:");
+        char get;
+        if (scanner.hasNext()){
+            get = scanner.next().charAt(0);
+        }else {
+            System.out.println("Вы допустили ошибку при вводе операции. Попробуйте еще раз.");
+            scanner.hasNext();
+            get =get2();
+        }
+        return get;
+    }
+    public static int calc(int num1, int num2,int num3, char operation){
+        int result;
+        switch (operation){
+            case '+':
+                result = num1+num2-num3;
+                break;
+            case '-':
+                result = num1-num2+num3;
+                break;
+            case '*':
+                result = num1*num2/num3;
+                break;
+            case '/':
+                result = num1/num2*num3;
+                break;
+            default:
+                System.out.println("Операция не распознана. Повторите ввод.");
+                result = calc(num1, num2,num3, getOperation());
+        }
+        return result;
     }
 
 }
-
-
-
-
-
 
 
